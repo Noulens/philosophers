@@ -6,7 +6,7 @@
 #    By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/10/01 21:00:49 by waxxy            ###   ########.fr        #
+#    Updated: 2022/10/01 21:11:19 by waxxy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,9 +72,9 @@ BODY_WIDTH	=	$(shell printf "$$(($(HEAD_SIZE) - 1))")
 all:	$(NAME)
 
 $(BUILDIR)/%.o:	%.c
-				mkdir -p build
+				@mkdir -p build
 				@ printf "$(YELLOW)Compiling $@ and generating .o files...$(DEFAULT)\n"
-				$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
+				@$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 				@ printf '$(DELPREV)%-*s$(GREEN)$(CHECK)$(DEFAULT)\n' $(BODY_WIDTH) $(notdir $@)
 
 
