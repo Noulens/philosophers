@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+         #
+#    By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/10/01 21:11:19 by waxxy            ###   ########.fr        #
+#    Updated: 2022/10/03 17:00:50 by tnoulens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS		=	main.c\
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
-CFLAGS		=	-Wall -Wextra -Werror -g
+CFLAGS		=	-Wall -Wextra -Werror -g -pthread
 
 CC			=	cc
 
@@ -95,3 +95,9 @@ fclean:			clean
 
 re:				fclean
 				@$(MAKE) -s all
+
+lc:			all
+				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./philo 10 100 100 100
+
+dr:			all
+				valgrind --tool=helgrind ./philo 10 100 100 100			

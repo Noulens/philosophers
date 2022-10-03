@@ -3,28 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/01 21:02:14 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/10/03 15:51:11 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include <stdio.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <signal.h>
-# include <linux/limits.h>
-# include <limits.h>
 # include <errno.h>
+# include <fcntl.h>
+# include <limits.h>
+# include <linux/limits.h>
+# include <pthread.h>
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/stat.h>
+# include <sys/time.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <unistd.h>
 # include "colors.h"
 
 /* --- defines --- */

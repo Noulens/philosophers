@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/01 21:09:31 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/10/03 18:07:31 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,30 @@ static int	initphilo(char **v, t_philo	*philo)
 	return (1);
 }
 
+void	*func(void *a)
+{
+	int	*b;
+
+	b = (int *)a;
+	*b = *b + 10;
+	return ((void *)0);
+}
+
 int	main(int argc, char **argv)
 {
-	t_philo	philo;	
+	t_philo		philo;
+	pthread_t	thread;
+	int			i;
+	//int			ret; // Valeur de retour pour pthread_join
 
+	i = 55;
 	if (argc < 5 || argc > 6 || !ft_v_args(argv) || !initphilo(argv, &philo))
 		argerror();
 	else if (argc == 5)
 	{
-		// do 5
+		pthread_create(&thread, NULL, func, &i);
+		pthread_join(thread, NULL);
+		printf("%c\n", i);
 	}
 	else
 	{
