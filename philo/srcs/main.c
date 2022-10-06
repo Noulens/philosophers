@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/06 20:32:47 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:41:27 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	argerror(void)
 	printf(WHITE"Usage: \ntime unit in ms, pos numbers, int max top\n./philo ["
 		UNDERLINE_WHITE"NB OF PHILOSOPHERS"WHITE"] ["UNDERLINE_WHITE
 		"TIME TO DIE"WHITE"] ["UNDERLINE_WHITE"TIME TO EAT"WHITE"] ["
-		UNDERLINE_WHITE	"TIME TO SLEEP"WHITE"] ["UNDERLINE_WHITE
+		UNDERLINE_WHITE"TIME TO SLEEP"WHITE"] ["UNDERLINE_WHITE
 		"optional NUMBER OF MEAL"RESET"]\n");
 }
 
@@ -88,6 +88,7 @@ static int	initphilo(char **v, t_philo	*philo)
 	return (1);
 }
 /* testfunction,to remove */
+/*
 void	*func(void *a)
 {
 	int	*b;
