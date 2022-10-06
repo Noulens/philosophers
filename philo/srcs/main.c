@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/03 18:07:31 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:32:47 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	ft_v_args(char **v)
 static int	initphilo(char **v, t_philo	*philo)
 {
 	philo->nbp = atoiunsigned(*(v + 1));
-	if (philo->nbp > INT_MAX)
+	if (philo->nbp > INT_MAX || philo->nbp == 0)
 		return (0);
 	philo->ttd = atoiunsigned(*(v + 2));
 	if (philo->ttd > INT_MAX)
@@ -87,7 +87,7 @@ static int	initphilo(char **v, t_philo	*philo)
 		philo->nbm = -1;
 	return (1);
 }
-
+/* testfunction,to remove */
 void	*func(void *a)
 {
 	int	*b;
@@ -96,6 +96,7 @@ void	*func(void *a)
 	*b = *b + 10;
 	return ((void *)0);
 }
+/* end test to remove */
 
 int	main(int argc, char **argv)
 {
