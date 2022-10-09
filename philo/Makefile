@@ -6,7 +6,7 @@
 #    By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/10/09 15:12:02 by waxxy            ###   ########.fr        #
+#    Updated: 2022/10/09 16:35:45 by waxxy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ INCLDIR		=	includes/
 
 SRCS		=	main.c\
 				utils1.c\
-				time.c
+				time_utils.c
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
