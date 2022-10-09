@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/06 20:41:27 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/09 16:32:16 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,32 +88,40 @@ static int	initphilo(char **v, t_philo	*philo)
 	return (1);
 }
 /* testfunction,to remove */
-/*
 void	*func(void *a)
 {
-	int	*b;
+	t_philo			*b;
+	struct timeval	itg;
 
-	b = (int *)a;
-	*b = *b + 10;
-	return ((void *)0);
+	b = (t_philo *)a;
+	gettimeofday(&itg, NULL);
+	b->time = (multiply_bitewise(itg.tv_sec, MIL) + itg.tv_usec) - b->start;
+	printf("%ld %d is thinking\n", b->time / 1000, b->nbp);
+	usleep(200000);
+	return (NULL);
 }
-/* end test to remove */
 
 int	main(int argc, char **argv)
 {
 	t_philo		philo;
 	pthread_t	thread;
 	int			i;
+	struct timeval	start;
 	//int			ret; // Valeur de retour pour pthread_join
 
-	i = 55;
+	i = 0;
+	gettimeofday(&start, NULL);
+	philo.start = multiply_bitewise(start.tv_sec, MIL) + start.tv_usec;
 	if (argc < 5 || argc > 6 || !ft_v_args(argv) || !initphilo(argv, &philo))
 		argerror();
 	else if (argc == 5)
 	{
-		pthread_create(&thread, NULL, func, &i);
-		pthread_join(thread, NULL);
-		printf("%c\n", i);
+		while (i < 3)
+		{
+			pthread_create(&thread, NULL, func, &philo);
+			pthread_join(thread, NULL);
+			i++;
+		}
 	}
 	else
 	{

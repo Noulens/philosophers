@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+         #
+#    By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/10/03 17:00:50 by tnoulens         ###   ########.fr        #
+#    Updated: 2022/10/09 15:12:02 by waxxy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ BUILDIR		=	build
 INCLDIR		=	includes/
 
 SRCS		=	main.c\
-				utils1.c
+				utils1.c\
+				time.c
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
