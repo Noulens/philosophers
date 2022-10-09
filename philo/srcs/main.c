@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/09 16:32:16 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/10/09 16:45:35 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	gettimeofday(&start, NULL);
 	philo.start = multiply_bitewise(start.tv_sec, MIL) + start.tv_usec;
+	printf("Start : %ld\n", philo.start - philo.start);
 	if (argc < 5 || argc > 6 || !ft_v_args(argv) || !initphilo(argv, &philo))
 		argerror();
 	else if (argc == 5)
