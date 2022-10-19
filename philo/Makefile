@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+         #
+#    By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/10/09 16:35:45 by waxxy            ###   ########.fr        #
+#    Updated: 2022/10/19 20:22:43 by tnoulens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,13 +20,14 @@ INCLDIR		=	includes/
 
 SRCS		=	main.c\
 				utils1.c\
-				time_utils.c
+				time_utils.c\
+				actions.c
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
 CFLAGS		=	-Wall -Wextra -Werror -g -pthread
 
-CC			=	cc
+CC			=	clang
 
 INCFLAGS	=	$(addprefix -I , $(INCLDIR))
 
@@ -101,4 +102,4 @@ lc:			all
 				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./philo 10 100 100 100
 
 dr:			all
-				valgrind --tool=helgrind ./philo 10 100 100 100			
+				valgrind --tool=helgrind -s ./philo 10 100 100 100			

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/09 16:45:35 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/10/19 20:10:31 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,46 +87,29 @@ static int	initphilo(char **v, t_philo	*philo)
 		philo->nbm = -1;
 	return (1);
 }
-/* testfunction,to remove */
-void	*func(void *a)
-{
-	t_philo			*b;
-	struct timeval	itg;
-
-	b = (t_philo *)a;
-	gettimeofday(&itg, NULL);
-	b->time = (multiply_bitewise(itg.tv_sec, MIL) + itg.tv_usec) - b->start;
-	printf("%ld %d is thinking\n", b->time / 1000, b->nbp);
-	usleep(200000);
-	return (NULL);
-}
 
 int	main(int argc, char **argv)
 {
-	t_philo		philo;
-	pthread_t	thread;
-	int			i;
+	t_philo			philo;
+	pthread_t		thread;
+	int				i;
 	struct timeval	start;
-	//int			ret; // Valeur de retour pour pthread_join
 
 	i = 0;
 	gettimeofday(&start, NULL);
-	philo.start = multiply_bitewise(start.tv_sec, MIL) + start.tv_usec;
+	philo.start = multiply_bitewise(start.tv_sec, MM) + start.tv_usec;
 	printf("Start : %ld\n", philo.start - philo.start);
 	if (argc < 5 || argc > 6 || !ft_v_args(argv) || !initphilo(argv, &philo))
 		argerror();
-	else if (argc == 5)
+	else
 	{
+		
 		while (i < 3)
 		{
-			pthread_create(&thread, NULL, func, &philo);
+			pthread_create(&thread, NULL, eat, &philo);
 			pthread_join(thread, NULL);
 			i++;
 		}
-	}
-	else
-	{
-		// do 6
 	}
 	return (0);
 }

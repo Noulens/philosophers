@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/09 16:25:23 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/10/11 15:33:45 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 # define FALSE 0
 # define SUCCES 0
 # define FAIL 1
-# define MIL 1000000
+# define MM 1000000
+# define M 1000
 
 /* --- stuctures --- */
 
@@ -58,5 +59,9 @@ size_t			ft_strlen(const char *s);
 int				ft_isdigit(int c);
 void			ft_printab(char **str);
 unsigned long	multiply_bitewise(long a, long b);
+
+	// actions
+void			*eat(void *a);
+void			*is_sleep(void *a);
 
 #endif
