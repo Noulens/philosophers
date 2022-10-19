@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/19 20:10:31 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/19 20:36:54 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,7 @@ int	main(int argc, char **argv)
 	if (argc < 5 || argc > 6 || !ft_v_args(argv) || !initphilo(argv, &philo))
 		argerror();
 	else
-	{
-		
+	{	
 		while (i < 3)
 		{
 			pthread_create(&thread, NULL, eat, &philo);
