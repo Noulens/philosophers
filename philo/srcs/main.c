@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/19 20:36:54 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:54:34 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,50 +63,26 @@ static int	ft_v_args(char **v)
 	return (1);
 }
 
-static int	initphilo(char **v, t_philo	*philo)
-{
-	philo->nbp = atoiunsigned(*(v + 1));
-	if (philo->nbp > INT_MAX || philo->nbp == 0)
-		return (0);
-	philo->ttd = atoiunsigned(*(v + 2));
-	if (philo->ttd > INT_MAX)
-		return (0);
-	philo->tte = atoiunsigned(*(v + 3));
-	if (philo->nbp > INT_MAX)
-		return (0);
-	philo->tts = atoiunsigned(*(v + 4));
-	if (philo->nbp > INT_MAX)
-		return (0);
-	if (*(v + 5) != NULL)
-	{
-		philo->nbm = atoiunsigned(*(v + 5));
-		if (philo->nbm > INT_MAX)
-			return (0);
-	}
-	else
-		philo->nbm = -1;
-	return (1);
-}
-
 int	main(int argc, char **argv)
 {
-	t_philo			philo;
-	pthread_t		thread;
+	t_simulation	sim;
+	t_philo			**philo;
+	pthread_t		maestro;
 	int				i;
-	struct timeval	start;
+	struct timeval	st;
 
 	i = 0;
-	gettimeofday(&start, NULL);
-	philo.start = multiply_bitewise(start.tv_sec, MM) + start.tv_usec;
-	printf("Start : %ld\n", philo.start - philo.start);
-	if (argc < 5 || argc > 6 || !ft_v_args(argv) || !initphilo(argv, &philo))
+	if (argc < 5 || argc > 6 || !ft_v_args(argv) || !initsim(argv, &sim, &st))
 		argerror();
 	else
 	{	
+		philo = (t_philo **)ft_calloc(sizeof(t_philo *), sim.nbp);
+		if (philo == NULL || initphilo(philo, &sim) == 1)
+			return (1);
 		while (i < 3)
 		{
-			pthread_create(&thread, NULL, eat, &philo);
-			pthread_join(thread, NULL);
+			pthread_create(&maestro, NULL, eat, &sim);
+			pthread_join(maestro, NULL);
 			i++;
 		}
 	}

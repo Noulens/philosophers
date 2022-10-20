@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/11 15:32:41 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/20 14:11:32 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	*eat(void *a)
 {
-	t_philo			*b;
+	t_simulation	*b;
 	struct timeval	itg;
 
-	b = (t_philo *)a;
+	b = (t_simulation *)a;
 	gettimeofday(&itg, NULL);
 	b->time = (multiply_bitewise(itg.tv_sec, MM) + itg.tv_usec) - b->start;
 	printf("%ld %d is eating\n", b->time / M, b->nbp);
@@ -27,10 +27,10 @@ void	*eat(void *a)
 
 void	*is_sleep(void *a)
 {
-	t_philo			*b;
+	t_simulation	*b;
 	struct timeval	itg;
 
-	b = (t_philo *)a;
+	b = (t_simulation *)a;
 	gettimeofday(&itg, NULL);
 	b->time = (multiply_bitewise(itg.tv_sec, MM) + itg.tv_usec) - b->start;
 	printf("%ld %d is sleeping\n", b->time / M, b->nbp);

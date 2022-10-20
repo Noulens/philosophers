@@ -6,7 +6,7 @@
 #    By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/10/19 20:22:43 by tnoulens         ###   ########.fr        #
+#    Updated: 2022/10/20 15:36:28 by tnoulens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,13 +21,15 @@ INCLDIR		=	includes/
 SRCS		=	main.c\
 				utils1.c\
 				time_utils.c\
-				actions.c
+				actions.c\
+				initialisation.c\
+				cleaning.c
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
 CFLAGS		=	-Wall -Wextra -Werror -g -pthread
 
-CC			=	clang
+CC			=	cc
 
 INCFLAGS	=	$(addprefix -I , $(INCLDIR))
 
