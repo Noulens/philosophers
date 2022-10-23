@@ -6,34 +6,31 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/20 14:11:32 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 20:29:25 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*eat(void *a)
+void	*diner(void *a)
 {
 	t_simulation	*b;
 	struct timeval	itg;
 
 	b = (t_simulation *)a;
-	gettimeofday(&itg, NULL);
-	b->time = (multiply_bitewise(itg.tv_sec, MM) + itg.tv_usec) - b->start;
-	printf("%ld %d is eating\n", b->time / M, b->nbp);
-	usleep(multiply_bitewise(b->tte, M));
-	return (NULL);
+	if (inittime(b) == 1)
+		return ;
 }
 
-void	*is_sleep(void *a)
+void	sleeping(t_simulation *sm)
 {
-	t_simulation	*b;
-	struct timeval	itg;
+	time_t	wake_time;
 
-	b = (t_simulation *)a;
-	gettimeofday(&itg, NULL);
-	b->time = (multiply_bitewise(itg.tv_sec, MM) + itg.tv_usec) - b->start;
-	printf("%ld %d is sleeping\n", b->time / M, b->nbp);
-	usleep(multiply_bitewise(b->tts, M));
-	return (NULL);
+	wake_time = gettimeinms() + sm->tts;
+	while (gettimeinms() < wake_time)
+	{
+		if (sm->is_on == FALSE)
+			break ;
+		usleep(10);
+	}
 }

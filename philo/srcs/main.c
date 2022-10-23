@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/20 15:54:34 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 20:27:45 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,23 @@ static int	ft_v_args(char **v)
 
 int	main(int argc, char **argv)
 {
-	t_simulation	sim;
+	t_simulation	sm;
 	t_philo			**philo;
+	t_forks			**fork;
 	pthread_t		maestro;
-	int				i;
-	struct timeval	st;
 
-	i = 0;
-	if (argc < 5 || argc > 6 || !ft_v_args(argv) || !initsim(argv, &sim, &st))
+	philo = NULL;
+	fork = NULL;
+	if (argc < 5 || argc > 6 || !ft_v_args(argv) || !initsim(argv, &sm))
 		argerror();
 	else
-	{	
-		philo = (t_philo **)ft_calloc(sizeof(t_philo *), sim.nbp);
-		if (philo == NULL || initphilo(philo, &sim) == 1)
+	{
+		if (initphilo(philo, &sm, fork) == 1)
 			return (1);
-		while (i < 3)
-		{
-			pthread_create(&maestro, NULL, eat, &sim);
-			pthread_join(maestro, NULL);
-			i++;
-		}
+		pthread_create(&maestro, NULL, diner, &sm);
+		pthread_join(maestro, NULL);
+		destroy_fork(fork, sm.nbp);
+		clean_philo_mem(philo, fork);
 	}
 	return (0);
 }
