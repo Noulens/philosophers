@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:34:09 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/23 21:26:58 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 21:29:28 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,14 @@ void	clean_philo_mem(t_philo **philo, t_forks **fork)
 	if (philo != NULL)
 	{
 		while (philo[++o] != NULL)
-		{
 			free(philo[o]);
-		}
 		free(philo);
 	}
 	o = -1;
 	if (fork != NULL)
 	{
 		while (fork[++o] != NULL)
-		{
 			free(fork[o]);
-		}
 		free(fork);
 	}
 }
