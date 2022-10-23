@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/23 22:17:01 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 22:28:12 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ unsigned int	atoiunsigned(const char *p);
 size_t			ft_strlen(const char *s);
 int				ft_isdigit(int c);
 void			ft_printab(char **str);
-void			*ft_calloc(size_t nmemb, size_t size);
+
 	// time utilities
 time_t			gettimeinms(void);
 unsigned long	multiply_bitewise(long a, long b);

@@ -6,7 +6,7 @@
 #    By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/10/23 21:26:02 by tnoulens         ###   ########.fr        #
+#    Updated: 2022/10/23 22:34:16 by tnoulens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,12 @@ SRCS		=	main.c\
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
 CFLAGS		=	-Wall -Wextra -Werror -g -pthread
+
+# Run 'make re MODE=fsanitize' to run fsanitize.
+MODE	= none
+ifeq ($(MODE), fsanitize)
+	CFLAGS	+= -fsanitize=thread -g3
+endif
 
 CC			=	cc
 

@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:26:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/23 22:21:14 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 22:29:16 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	initfork(unsigned int nbp, t_simulation *sm)
 	unsigned int	o;
 
 	o = -1;
-	sm->forks = malloc(sizeof(t_forks *) * nbp + sizeof(t_forks *));
+	sm->forks = malloc(sizeof(t_forks *) * (nbp + 1));
 	if (sm->forks == NULL)
 		return (1);
 	while (++o, o < nbp)

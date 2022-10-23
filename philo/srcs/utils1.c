@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 21:00:01 by waxxy             #+#    #+#             */
-/*   Updated: 2022/10/23 22:10:32 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 22:28:02 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,4 @@ void	ft_printab(char **str)
 			i++;
 		}
 	}
-}
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	register void	*p;
-	register char	*ptr;
-	register size_t	mem_size;
-	register size_t	max_st;
-
-	max_st = ~(size_t)0;
-	if (size > 0 && nmemb > max_st / size)
-		return (NULL);
-	mem_size = nmemb * size;
-	p = malloc(mem_size);
-	if (!p)
-		return (NULL);
-	ptr = p;
-	while (mem_size--)
-		*ptr++ = '\0';
-	return (p);
 }
