@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/23 20:27:12 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 21:28:49 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define FAIL 1
 # define MM 1000000
 # define M 1000
+# define C 100
 
 /* --- stuctures --- */
 
