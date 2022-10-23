@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:26:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/23 21:27:07 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 22:21:14 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,29 @@ int	inittime(t_simulation *sim)
 	return (0);
 }
 
-static int	initfork(unsigned int nbp, t_philo **philo, t_forks **fork)
+static int	initfork(unsigned int nbp, t_simulation *sm)
 {
 	unsigned int	o;
 
 	o = -1;
-	fork = (t_forks **)ft_calloc(sizeof(t_forks *), nbp);
-	if (fork == NULL)
+	sm->forks = malloc(sizeof(t_forks *) * nbp + sizeof(t_forks *));
+	if (sm->forks == NULL)
 		return (1);
 	while (++o, o < nbp)
 	{
-		fork[o] = (t_forks *)malloc(sizeof(t_forks));
-		if (!fork[o])
+		sm->forks[o] = (t_forks *)malloc(sizeof(t_forks));
+		if (!sm->forks[o])
 		{
-			clean_philo_mem(philo, fork);
+			clean_philo_mem(sm);
 			write(2, "\nenomem\n", 8);
 			return (1);
 		}
-		fork[o]->is_taken = FALSE;
+		sm->forks[o]->is_taken = FALSE;
 	}
+	sm->forks[o] = NULL;
 	o = -1;
 	while (++o, o < nbp)
-		pthread_mutex_init(&fork[o]->fork, NULL);
+		pthread_mutex_init(&sm->forks[o]->fork, NULL);
 	return (0);
 }
 
@@ -73,28 +74,29 @@ int	initsim(char **v, t_simulation *sim)
 	return (1);
 }
 
-int	initphilo(t_philo **philo, t_simulation *sim, t_forks **fork)
+int	initphilo(t_simulation *sim)
 {
 	unsigned int	o;
 
 	o = -1;
-	philo = (t_philo **)ft_calloc(sizeof(t_philo *), sim->nbp);
-	if (philo == NULL)
-		return (clean_philo_mem(philo, fork), 1);
+	sim->philo = NULL;
+	sim->forks = NULL;
+	sim->philo = (t_philo **)malloc(sizeof(t_philo *) * (sim->nbp + 1));
+	if (sim->philo == NULL)
+		return (clean_philo_mem(sim), 1);
 	while (++o, o < sim->nbp)
 	{
-		philo[o] = (t_philo *)malloc(sizeof(t_philo));
-		if (!philo[o])
-			return (clean_philo_mem(philo, fork), write(2, "enomem\n", 7), 1);
-		philo[o]->num = o + 1;
-		philo[o]->fourchette = o;
-		philo[o]->last_meal = 0;
-		philo[o]->meals = 0;
-		philo[o]->ttt = 0;
+		sim->philo[o] = (t_philo *)malloc(sizeof(t_philo));
+		if (!sim->philo[o])
+			return (clean_philo_mem(sim), 1);
+		sim->philo[o]->num = o + 1;
+		sim->philo[o]->fourchette = o;
+		sim->philo[o]->last_meal = 0;
+		sim->philo[o]->meals = 0;
+		sim->philo[o]->ttt = 0;
 	}
-	if (initfork(sim->nbp, philo, fork) == 1)
+	sim->philo[o] = NULL;
+	if (initfork(sim->nbp, sim) == 1)
 		return (1);
-	sim->philo = philo;
-	sim->forks = fork;
 	return (0);
 }

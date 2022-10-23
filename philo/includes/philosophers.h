@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/23 21:28:49 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 22:17:01 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct s_simulation
 
 	// initialisation
 int				initsim(char **v, t_simulation *sim);
-int				initphilo(t_philo **philo, t_simulation *sim, t_forks **fork);
+int				initphilo(t_simulation *sim);
 int				inittime(t_simulation *sim);
 
 	// actions
@@ -93,8 +93,8 @@ void			*diner(void *a);
 void			sleeping(t_simulation *sm);
 
 	// cleaning
-void			clean_philo_mem(t_philo **philo, t_forks **fork);
-void			destroy_fork(pthread_mutex_t **fork, int nbp);
+void			clean_philo_mem(t_simulation *sm);
+void			destroy_fork(t_simulation *sm, int nbp);
 
 	// utilities
 unsigned int	atoiunsigned(const char *p);

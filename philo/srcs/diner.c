@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   actions.c                                          :+:      :+:    :+:   */
+/*   diner.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/23 20:29:25 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 21:54:45 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	*diner(void *a)
 {
 	t_simulation	*b;
-	struct timeval	itg;
 
 	b = (t_simulation *)a;
 	if (inittime(b) == 1)
-		return ;
+		return (NULL);
+	return (NULL);
 }
 
 void	sleeping(t_simulation *sm)

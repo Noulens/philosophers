@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/23 20:27:45 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 22:21:42 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,22 +66,18 @@ static int	ft_v_args(char **v)
 int	main(int argc, char **argv)
 {
 	t_simulation	sm;
-	t_philo			**philo;
-	t_forks			**fork;
 	pthread_t		maestro;
 
-	philo = NULL;
-	fork = NULL;
 	if (argc < 5 || argc > 6 || !ft_v_args(argv) || !initsim(argv, &sm))
 		argerror();
 	else
 	{
-		if (initphilo(philo, &sm, fork) == 1)
-			return (1);
+		if (initphilo(&sm) == 1)
+			return (write(2, "enomem\n", 7), 1);
 		pthread_create(&maestro, NULL, diner, &sm);
 		pthread_join(maestro, NULL);
-		destroy_fork(fork, sm.nbp);
-		clean_philo_mem(philo, fork);
+		destroy_fork(&sm, sm.nbp);
+		clean_philo_mem(&sm);
 	}
 	return (0);
 }

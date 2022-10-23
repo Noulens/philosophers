@@ -6,38 +6,38 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:34:09 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/23 21:29:28 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 22:16:36 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	clean_philo_mem(t_philo **philo, t_forks **fork)
+void	clean_philo_mem(t_simulation *sm)
 {
 	int	o;
 
 	o = -1;
-	if (philo != NULL)
+	if (sm->philo != NULL)
 	{
-		while (philo[++o] != NULL)
-			free(philo[o]);
-		free(philo);
+		while (sm->philo[++o] != NULL)
+			free(sm->philo[o]);
+		free(sm->philo);
 	}
 	o = -1;
-	if (fork != NULL)
+	if (sm->forks != NULL)
 	{
-		while (fork[++o] != NULL)
-			free(fork[o]);
-		free(fork);
+		while (sm->forks[++o] != NULL)
+			free(sm->forks[o]);
+		free(sm->forks);
 	}
 }
 
-void	destroy_fork(pthread_mutex_t **fork, int nbp)
+void	destroy_fork(t_simulation *sm, int nbp)
 {
-	unsigned int	o;
+	int	o;
 
 	o = -1;
 	while (++o, o < nbp)
-		if (pthread_mutex_destroy(fork[o]) == EBUSY)
+		if (pthread_mutex_destroy(&sm->forks[o]->fork) == EBUSY)
 			printf("Mutex [%u] is busy and was not destroyed\n", o);
 }
