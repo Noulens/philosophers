@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:34:09 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/23 20:26:54 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/23 21:26:58 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ void	destroy_fork(pthread_mutex_t **fork, int nbp)
 	o = -1;
 	while (++o, o < nbp)
 		if (pthread_mutex_destroy(fork[o]) == EBUSY)
-			printf("Mutex %u is busy and was not destroyed", o);
+			printf("Mutex [%u] is busy and was not destroyed\n", o);
 }
