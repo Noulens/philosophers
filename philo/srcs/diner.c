@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/24 00:33:33 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/24 00:43:25 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	die(t_simulation *sm)
 	die_time = gettimeinms() + sm->ttd;
 	while (gettimeinms() < die_time)
 	{
+		usleep(100);
 	}
 	printf("%ld: %d died\n", gettimeinms() - sm->start, sm->philo[0]->num);
 }
@@ -63,6 +64,9 @@ void	*diner(void *a)
 	if (inittime(b) == 1)
 		return (NULL);
 	if (b->nbp == 1)
+	{
 		diner_one(b);
+		return (NULL);
+	}
 	return (NULL);
 }
