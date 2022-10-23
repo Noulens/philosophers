@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/24 00:43:25 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/24 00:52:22 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	die(t_simulation *sm)
 		usleep(100);
 	}
 	printf("%ld: %d died\n", gettimeinms() - sm->start, sm->philo[0]->num);
+	sm->is_on = FALSE;
 }
 
 void	*thread_routine_one(void *a)
@@ -42,11 +43,16 @@ void	*thread_routine_one(void *a)
 	t_simulation	*sm;
 
 	sm = (t_simulation *)a;
-	pthread_mutex_lock(&sm->forks[0]->fork);
-	printf("%ld: %d has taken a fork\n", gettimeinms() - sm->start,
-		sm->philo[0]->num);
+	if (sm->forks[0]->is_taken == FALSE)
+	{
+		pthread_mutex_lock(&sm->forks[0]->fork);
+		printf("%ld: %d has taken a fork\n", gettimeinms() - sm->start,
+			sm->philo[0]->num);
+		sm->forks[0]->is_taken = TRUE;
+	}
 	die(sm);
 	pthread_mutex_unlock(&sm->forks[0]->fork);
+	sm->forks[0]->is_taken = FALSE;
 	return (NULL);
 }
 
@@ -66,7 +72,7 @@ void	*diner(void *a)
 	if (b->nbp == 1)
 	{
 		diner_one(b);
-		return (NULL);
+		return (b->is_on = FALSE, NULL);
 	}
 	return (NULL);
 }
