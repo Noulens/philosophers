@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   diner.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/24 00:53:19 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/30 22:34:53 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	sleeping(t_simulation *sm)
 	{
 		if (sm->is_on == FALSE)
 			break ;
-		usleep(10);
+		usleep(1);
 	}
 }
 
@@ -62,17 +62,40 @@ void	diner_one(t_simulation *b)
 	pthread_join(b->philo[0]->name, NULL);
 }
 
+void	thread_routine(t_simulation *b)
+{
+	
+}
+
 void	*diner(void *a)
 {
 	t_simulation	*b;
+	int				i;
 
+	i = -1;
 	b = (t_simulation *)a;
 	if (inittime(b) == 1)
 		return (NULL);
 	if (b->nbp == 1)
+		return (diner_one(b), b->is_on = FALSE, NULL);
+	while (++i < b->nbp)
 	{
-		diner_one(b);
-		return (b->is_on = FALSE, NULL);
+		if (i % 2 == 0)
+			pthread_create(&b->philo[i], NULL, &thread_routine, a);
+		else
+		{
+			usleep(100);
+			pthread_create(&b->philo[i], NULL, &thread_routine, a);
+		}
+	}
+	i = -1;
+	while (b->is_on == TRUE)
+	{
+		usleep(100);
+	}
+	while (++i, i < b->nbp)
+	{
+		pthread_join(b->philo[i], NULL);
 	}
 	return (NULL);
 }
