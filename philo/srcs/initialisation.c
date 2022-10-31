@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:26:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/23 22:29:16 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/31 15:48:28 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,23 @@
 int	inittime(t_simulation *sim)
 {
 	struct timeval	st;
+	unsigned int	i;
 
 	if (gettimeofday(&st, NULL) == 1)
 		return (write(2, "Error in getting start time\n", 27), 1);
 	sim->start = gettimeinms();
+	i = -1;
+	while (++i, i < sim->nbp)
+		sim->philo[i]->start = sim->start;
 	return (0);
+}
+
+unsigned int	maxf(unsigned int nbp, unsigned int o)
+{
+	if (o == 0)
+		return (nbp - 1);
+	else
+		return (o - 1);
 }
 
 static int	initfork(unsigned int nbp, t_simulation *sm)
@@ -34,14 +46,17 @@ static int	initfork(unsigned int nbp, t_simulation *sm)
 	{
 		sm->forks[o] = (t_forks *)malloc(sizeof(t_forks));
 		if (!sm->forks[o])
-		{
-			clean_philo_mem(sm);
-			write(2, "\nenomem\n", 8);
-			return (1);
-		}
+			return (clean_philo_mem(sm), write(2, "\nenomem\n", 8), 1);
 		sm->forks[o]->is_taken = FALSE;
 	}
 	sm->forks[o] = NULL;
+	o = -1;
+	while (++o, o < nbp)
+	{
+		sm->philo[o]->forkg = sm->forks[o];
+		if (nbp != 1)
+			sm->philo[o]->forkd = sm->forks[maxf(nbp, o)];
+	}
 	o = -1;
 	while (++o, o < nbp)
 		pthread_mutex_init(&sm->forks[o]->fork, NULL);
@@ -89,14 +104,16 @@ int	initphilo(t_simulation *sim)
 		sim->philo[o] = (t_philo *)malloc(sizeof(t_philo));
 		if (!sim->philo[o])
 			return (clean_philo_mem(sim), 1);
-		sim->philo[o]->num = o + 1;
-		sim->philo[o]->fourchette = o;
+		sim->philo[o]->num = o;
 		sim->philo[o]->last_meal = 0;
 		sim->philo[o]->meals = 0;
 		sim->philo[o]->ttt = 0;
+		sim->philo[o]->tte = sim->tte;
+		sim->philo[o]->ttd = sim->ttd;
+		sim->philo[o]->tts = sim->tts;
+		sim->philo[o]->nbm = sim->nbm;
+		sim->philo[o]->nbp = sim->nbp;
 	}
 	sim->philo[o] = NULL;
-	if (initfork(sim->nbp, sim) == 1)
-		return (1);
-	return (0);
+	return (initfork(sim->nbp, sim));
 }

@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/23 22:28:12 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/31 15:54:39 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,29 @@ typedef enum e_state
 	dort
 }	t_status;
 
-typedef struct s_philo
-{
-	pthread_t		name;
-	int				num;
-	int				fourchette;
-	t_status		status;
-	time_t			last_meal;
-	time_t			ttt;
-	int				meals;
-}	t_philo;
-
 typedef struct s_fork
 {
 	pthread_mutex_t	fork;
 	bool			is_taken;
 }	t_forks;
+
+typedef struct s_philo
+{
+	pthread_t		name;
+	int				num;
+	t_status		status;
+	time_t			last_meal;
+	unsigned int	meals;
+	t_forks			*forkd;
+	t_forks			*forkg;
+	time_t			ttd;
+	time_t			tts;
+	time_t			tte;
+	time_t			ttt;
+	unsigned int	nbm;
+	unsigned int	nbp;
+	time_t			start;
+}	t_philo;
 
 typedef struct s_simulation
 {
@@ -89,7 +96,8 @@ int				initphilo(t_simulation *sim);
 int				inittime(t_simulation *sim);
 
 	// actions
-void			*diner(void *a);
+int				diner(t_simulation *b);
+int				diner_one(t_philo *b);
 void			sleeping(t_simulation *sm);
 
 	// cleaning

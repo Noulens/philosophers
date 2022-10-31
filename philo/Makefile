@@ -6,7 +6,7 @@
 #    By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/10/24 00:37:32 by tnoulens         ###   ########.fr        #
+#    Updated: 2022/10/31 16:05:44 by tnoulens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS		=	main.c\
 				time_utils.c\
 				diner.c\
 				initialisation.c\
-				cleaning.c
+				cleaning.c\
+				actions.c
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
