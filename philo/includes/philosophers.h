@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/31 17:33:56 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/31 19:20:36 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ typedef struct s_simulation
 	t_philo			**philo;
 	t_forks			**forks;
 	bool			is_on;
-	time_t			time;
 	time_t			start;
 }	t_simulation;
 
