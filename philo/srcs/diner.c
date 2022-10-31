@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/31 16:03:54 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/31 16:25:29 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	die(t_philo *p)
 	{
 		usleep(100);
 	}
-	printf("%ld: %d died\n", gettimeinms() - p->start, p->num + 1);
+	printf("%ld %d died\n", gettimeinms() - p->start, p->num + 1);
+	p->status = pepsi;
 }
 
 void	*thread_routine_one(void *a)
@@ -32,7 +33,7 @@ void	*thread_routine_one(void *a)
 	if (p->forkg->is_taken == FALSE)
 	{
 		pthread_mutex_lock(&p->forkg->fork);
-		printf("%ld: %d has taken a fork\n", gettimeinms() - p->start,
+		printf("%ld %d has taken a fork\n", gettimeinms() - p->start,
 			p->num + 1);
 		p->forkg->is_taken = TRUE;
 	}
@@ -59,11 +60,11 @@ void	*rout(void *a)
 	if (p->forkg->is_taken == FALSE)
 	{
 		pthread_mutex_lock(&p->forkg->fork);
-		printf("%ld: %d has taken a fork\n", gettimeinms() - p->start,
+		printf("%ld %d has taken a fork\n", gettimeinms() - p->start,
 			p->num + 1);
 		p->forkg->is_taken = TRUE;
 	}
-	die(p);
+	//die(p);
 	pthread_mutex_unlock(&p->forkg->fork);
 	p->forkg->is_taken = FALSE;
 	return (NULL);
