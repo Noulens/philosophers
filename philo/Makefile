@@ -6,7 +6,7 @@
 #    By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/10/31 16:05:44 by tnoulens         ###   ########.fr        #
+#    Updated: 2022/10/31 18:59:55 by tnoulens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,7 +108,7 @@ re:				fclean
 				@$(MAKE) -s all
 
 lc:			all
-				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./philo 1 100 100 100
+				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./philo 2 400 100 100
 
 dr:			all
-				valgrind --tool=helgrind -s ./philo 1 100 100 100			
+				valgrind --tool=helgrind -s ./philo 2 400 100 100			

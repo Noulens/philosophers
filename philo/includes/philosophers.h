@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/31 15:54:39 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/31 17:33:56 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ int				inittime(t_simulation *sim);
 	// actions
 int				diner(t_simulation *b);
 int				diner_one(t_philo *b);
-void			sleeping(t_simulation *sm);
+void			sleeping(t_philo *p);
+void			eat(t_philo *p);
 
 	// cleaning
 void			clean_philo_mem(t_simulation *sm);

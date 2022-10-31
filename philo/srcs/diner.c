@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/31 16:25:29 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/31 18:59:00 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,16 @@ void	*rout(void *a)
 	t_philo	*p;
 
 	p = (t_philo *)a;
-	if (p->forkg->is_taken == FALSE)
-	{
-		pthread_mutex_lock(&p->forkg->fork);
-		printf("%ld %d has taken a fork\n", gettimeinms() - p->start,
-			p->num + 1);
-		p->forkg->is_taken = TRUE;
-	}
-	//die(p);
+	pthread_mutex_lock(&p->forkg->fork);
+	printf("%ld %d has taken a fork\n", gettimeinms() - p->start,
+		p->num + 1);
 	pthread_mutex_unlock(&p->forkg->fork);
-	p->forkg->is_taken = FALSE;
+	pthread_mutex_lock(&p->forkd->fork);
+	printf("%ld %d has taken a fork\n", gettimeinms() - p->start,
+		p->num + 1);
+	eat(p);
+	sleeping(p);
+	pthread_mutex_unlock(&p->forkd->fork);
 	return (NULL);
 }
 

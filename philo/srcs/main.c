@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/31 14:55:42 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/10/31 18:15:32 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,10 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
+
+/* 		for (unsigned int i = 0; i < sm.nbp; i++)
+		{
+			printf("addr philo g: %p\naddr simul g: %p\n\naddr philo d: %p\n\n"
+			, &sm.philo[i]->forkg->fork, &sm.forks[i]->fork,
+			&sm.philo[i]->forkd->fork);
+		}		*/
