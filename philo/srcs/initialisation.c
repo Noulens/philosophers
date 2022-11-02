@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:26:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/31 17:59:17 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/02 12:48:01 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	inittime(t_simulation *sim)
 	return (0);
 }
 
-unsigned int	maxf(unsigned int nbp, unsigned int o)
+unsigned int	maxf(unsigned int nbp, int o)
 {
 	if (o == 0)
 		return (nbp - 1);
@@ -34,58 +34,54 @@ unsigned int	maxf(unsigned int nbp, unsigned int o)
 		return (o - 1);
 }
 
-static int	initfork(unsigned int nbp, t_simulation *sm)
+static int	initfork(int o, unsigned int nbp, t_simulation *sm)
 {
-	unsigned int	o;
-
-	o = -1;
 	sm->forks = malloc(sizeof(t_forks *) * (nbp + 1));
 	if (sm->forks == NULL)
 		return (1);
-	while (++o, o < nbp)
+	while (--o, o >= 0)
 	{
 		sm->forks[o] = (t_forks *)malloc(sizeof(t_forks));
 		if (!sm->forks[o])
 			return (clean_philo_mem(sm), write(2, "\nenomem\n", 8), 1);
 		sm->forks[o]->is_taken = FALSE;
 	}
-	sm->forks[o] = NULL;
-	o = -1;
-	while (++o, o < nbp)
+	sm->forks[nbp] = NULL;
+	while (++o, o < (int)nbp)
 	{
 		sm->philo[o]->forkg = sm->forks[o];
 		if (nbp != 1)
 			sm->philo[o]->forkd = sm->forks[maxf(nbp, o)];
+		sm->philo[o]->mutex = sm->mutex;
 	}
-	o = -1;
-	while (++o, o < nbp)
+	while (--o, o >= 0)
 		pthread_mutex_init(&sm->forks[o]->fork, NULL);
+	while (++o, o < NB_MUTEX)
+		pthread_mutex_init(&sm->mutex[o], NULL);
 	return (0);
 }
 
 int	initsim(char **v, t_simulation *sim)
 {
 	sim->nbp = atoiunsigned(*(v + 1));
-	if (sim->nbp > INT_MAX || sim->nbp == 0)
-		return (0);
 	sim->ttd = atoiunsigned(*(v + 2));
-	if (sim->ttd > INT_MAX)
-		return (0);
 	sim->tte = atoiunsigned(*(v + 3));
-	if (sim->nbp > INT_MAX)
-		return (0);
 	sim->tts = atoiunsigned(*(v + 4));
-	if (sim->nbp > INT_MAX)
+	if (sim->nbp > INT_MAX || sim->nbp == 0 || sim->ttd > INT_MAX
+		|| sim->nbp > INT_MAX || sim->nbp > INT_MAX)
 		return (0);
 	if (*(v + 5) != NULL)
 	{
 		sim->nbm = atoiunsigned(*(v + 5));
-		if (sim->nbm > INT_MAX)
+		if ((unsigned int)sim->nbm > INT_MAX)
 			return (0);
 	}
 	else
 		sim->nbm = -1;
 	sim->is_on = TRUE;
+	sim->mutex = malloc(sizeof(pthread_mutex_t) * NB_MUTEX);
+	if (sim->mutex == NULL)
+		return (write(2, "enomem\n", 7), 0);
 	return (1);
 }
 
@@ -105,15 +101,14 @@ int	initphilo(t_simulation *sim)
 		if (!sim->philo[o])
 			return (clean_philo_mem(sim), 1);
 		sim->philo[o]->num = o;
-		sim->philo[o]->last_meal = 0;
 		sim->philo[o]->meals = 0;
-		sim->philo[o]->ttt = 0;
 		sim->philo[o]->tte = sim->tte;
 		sim->philo[o]->ttd = sim->ttd;
 		sim->philo[o]->tts = sim->tts;
 		sim->philo[o]->nbm = sim->nbm;
 		sim->philo[o]->nbp = sim->nbp;
+		sim->philo[o]->on = &sim->is_on;
 	}
 	sim->philo[o] = NULL;
-	return (initfork(sim->nbp, sim));
+	return (initfork((int)sim->nbp, sim->nbp, sim));
 }

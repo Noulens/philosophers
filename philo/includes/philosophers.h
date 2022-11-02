@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/31 19:20:36 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:02:52 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,18 @@ typedef enum e_state
 	pepsi,
 	pense,
 	mange,
-	dort
+	dort,
+	done
 }	t_status;
+
+typedef enum e_mutex
+{
+	PRINT,
+	CHECK_MEALS,
+	CHECK_STATUS,
+	CHECK_DONE,
+	NB_MUTEX
+}	t_mutex;
 
 typedef struct s_fork
 {
@@ -69,9 +79,11 @@ typedef struct s_philo
 	time_t			tts;
 	time_t			tte;
 	time_t			ttt;
-	unsigned int	nbm;
+	int				nbm;
 	unsigned int	nbp;
 	time_t			start;
+	pthread_mutex_t	*mutex;
+	bool			*on;
 }	t_philo;
 
 typedef struct s_simulation
@@ -84,7 +96,9 @@ typedef struct s_simulation
 	t_philo			**philo;
 	t_forks			**forks;
 	bool			is_on;
+	bool			is_done;
 	time_t			start;
+	pthread_mutex_t	*mutex;
 }	t_simulation;
 
 /* --- protoypes --- */
@@ -95,10 +109,12 @@ int				initphilo(t_simulation *sim);
 int				inittime(t_simulation *sim);
 
 	// actions
-int				diner(t_simulation *b);
-int				diner_one(t_philo *b);
+int				simulation(t_simulation *b);
 void			sleeping(t_philo *p);
 void			eat(t_philo *p);
+void			*thread_routine_one(void *a);
+int				diner_one(t_philo *b);
+void			die(t_philo *p);
 
 	// cleaning
 void			clean_philo_mem(t_simulation *sm);
@@ -109,6 +125,7 @@ unsigned int	atoiunsigned(const char *p);
 size_t			ft_strlen(const char *s);
 int				ft_isdigit(int c);
 void			ft_printab(char **str);
+void			ft_print(t_philo *p, t_status action);
 
 	// time utilities
 time_t			gettimeinms(void);

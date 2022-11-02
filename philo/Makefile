@@ -6,7 +6,7 @@
 #    By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/10/31 18:59:55 by tnoulens         ###   ########.fr        #
+#    Updated: 2022/11/02 13:03:03 by tnoulens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,11 @@ INCLDIR		=	includes/
 SRCS		=	main.c\
 				utils1.c\
 				time_utils.c\
-				diner.c\
+				simulation.c\
 				initialisation.c\
 				cleaning.c\
-				actions.c
+				actions.c\
+				edge_cases.c
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 

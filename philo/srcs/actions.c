@@ -6,11 +6,23 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:04:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/31 18:31:42 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/02 15:13:43 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int		check_simu(t_philo *p)
+{
+	pthread_mutex_lock(&p->mutex[CHECK_DONE]);
+	if (*(p->on) == FALSE);
+	{
+		pthread_mutex_unlock(&p->mutex[CHECK_DONE]);
+		return (FALSE);
+	}
+	pthread_mutex_unlock(&p->mutex[CHECK_DONE]);
+	return (TRUE);
+}
 
 void	sleeping(t_philo *p)
 {
