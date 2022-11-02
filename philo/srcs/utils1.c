@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 21:00:01 by waxxy             #+#    #+#             */
-/*   Updated: 2022/11/02 08:55:31 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/02 15:47:41 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ void	ft_printab(char **str)
 void	ft_print(t_philo *p, t_status action)
 {
 	if (action == mange)
-		printf("%ld %d is sleeping", gettimeinms() - p->start, p->num + 1);
+		printf("%ld %d is sleeping\n", gettimeinms() - p->start, p->num + 1);
 	else if (action == pense)
-		printf("%ld %d is thinking", gettimeinms() - p->start, p->num + 1);
+		printf("%ld %d is thinking\n", gettimeinms() - p->start, p->num + 1);
 	else if (action == dort)
-		printf("%ld %d is eating", gettimeinms() - p->start, p->num + 1);
+		printf("%ld %d is eating\n", gettimeinms() - p->start, p->num + 1);
 	else if (action == pepsi)
-		printf("%ld %d died", gettimeinms() - p->start, p->num + 1);
+		printf("%ld %d died\n", gettimeinms() - p->start, p->num + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/02 13:02:52 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/02 15:46:44 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void			eat(t_philo *p);
 void			*thread_routine_one(void *a);
 int				diner_one(t_philo *b);
 void			die(t_philo *p);
+int				check_simu(t_philo *p);
 
 	// cleaning
 void			clean_philo_mem(t_simulation *sm);
