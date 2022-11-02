@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:26:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/02 15:18:22 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/02 18:45:28 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	initphilo(t_simulation *sim)
 			return (clean_philo_mem(sim), 1);
 		sim->philo[o]->num = o;
 		sim->philo[o]->meals = 0;
+		sim->philo[o]->last_meal = 0;
 		sim->philo[o]->tte = sim->tte;
 		sim->philo[o]->ttd = sim->ttd;
 		sim->philo[o]->tts = sim->tts;

@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:04:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/02 18:38:42 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/02 18:43:11 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ void	eat(t_philo *p)
 	pthread_mutex_lock(&p->mutex[PRINT]);
 	eat_time = gettimeinms() + p->tte;
 	printf("%ld %d is eating\n", gettimeinms() - p->start, p->num + 1);
-	pthread_mutex_lock(&p->mutex[CHECK_STATUS]);
-	p->status = mange;
-	pthread_mutex_unlock(&p->mutex[CHECK_STATUS]);
 	pthread_mutex_lock(&p->mutex[CHECK_MEALS]);
 	p->meals++;
 	p->last_meal = gettimeinms() - p->start;
