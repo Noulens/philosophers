@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:26:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/02 12:48:01 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/02 15:18:22 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	initsim(char **v, t_simulation *sim)
 	if (*(v + 5) != NULL)
 	{
 		sim->nbm = atoiunsigned(*(v + 5));
-		if ((unsigned int)sim->nbm > INT_MAX)
+		if ((unsigned int)sim->nbm > INT_MAX || sim->nbm == 0)
 			return (0);
 	}
 	else
