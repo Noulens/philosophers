@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/03 18:50:18 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:26:07 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ int	diner_finish(t_simulation *sim, int nbm)
 
 void	is_dead(t_philo *p, t_simulation *sim)
 {
-	pthread_mutex_lock(&sim->mutex[CHECK_DONE]);
-	sim->is_on = FALSE;
-	pthread_mutex_unlock(&sim->mutex[CHECK_DONE]);
 	pthread_mutex_lock(&sim->mutex[PRINT]);
 	ft_print(p, pepsi);
 	pthread_mutex_unlock(&sim->mutex[PRINT]);
@@ -53,7 +50,7 @@ void	monitoring(t_simulation *sim)
 {
 	int				k;
 	unsigned int	meal;
-	int				check;
+	unsigned int	death;
 
 	k = 0;
 	while (TRUE)
@@ -61,12 +58,12 @@ void	monitoring(t_simulation *sim)
 		pthread_mutex_lock(&sim->mutex[CHECK_MEALS]);
 		meal = sim->philo[k]->last_meal;
 		pthread_mutex_unlock(&sim->mutex[CHECK_MEALS]);
-		pthread_mutex_lock(&sim->mutex[CHECK_DONE]);
-		check = sim->is_on;
-		pthread_mutex_unlock(&sim->mutex[CHECK_DONE]);
+		pthread_mutex_lock(&sim->mutex[CHECK_STATUS]);
+		death = sim->philo[k]->tod;
+		pthread_mutex_unlock(&sim->mutex[CHECK_STATUS]);
 		if ((meal && diner_finish(sim, sim->nbm) == TRUE))
 			break ;
-		if (check == FALSE)
+		if (death)
 		{
 			is_dead(sim->philo[k], sim);
 			break ;

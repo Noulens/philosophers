@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:26:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/03 17:33:24 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:24:18 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	initphilo(t_simulation *sim)
 	unsigned int	o;
 
 	o = -1;
-	sim->philo = NULL;
 	sim->forks = NULL;
 	sim->philo = (t_philo **)malloc(sizeof(t_philo *) * (sim->nbp + 1));
 	if (sim->philo == NULL)
@@ -100,6 +99,7 @@ int	initphilo(t_simulation *sim)
 		sim->philo[o]->num = o;
 		sim->philo[o]->meals = 0;
 		sim->philo[o]->last_meal = 0;
+		sim->philo[o]->tod = 0;
 		sim->philo[o]->tte = sim->tte;
 		sim->philo[o]->ttd = sim->ttd;
 		sim->philo[o]->tts = sim->tts;
