@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:04:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/03 19:20:19 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/03 20:01:05 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ void	sleeping(t_philo *p)
 
 	wake_time = gettimeinms() + p->tte;
 	lim = gettimeinms() + p->ttd;
-	pthread_mutex_lock(&p->mutex[PRINT]);
-	printf("%ld %d is sleeping\n", gettimeinms() - p->start, p->num + 1);
-	pthread_mutex_unlock(&p->mutex[PRINT]);
+	ft_print(p, dort);
 	if (wake_time > lim)
 	{
 		while (gettimeinms() < lim)
@@ -57,9 +55,7 @@ void	eat(t_philo *p)
 
 	eat_time = gettimeinms() + p->tte;
 	lim = gettimeinms() + p->ttd;
-	pthread_mutex_lock(&p->mutex[PRINT]);
-	printf("%ld %d is eating\n", gettimeinms() - p->start, p->num + 1);
-	pthread_mutex_unlock(&p->mutex[PRINT]);
+	ft_print(p, dort);
 	if (eat_time > lim)
 	{
 		while (gettimeinms() < lim)

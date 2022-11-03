@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/03 18:12:39 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/03 20:03:29 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@
 
 typedef enum e_state
 {
-	pepsi,
+	dead,
 	pense,
 	mange,
 	dort,
+	take,
 	done
 }	t_status;
 

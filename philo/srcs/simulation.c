@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/03 19:54:04 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/03 20:03:34 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ int	diner_finish(t_simulation *sim, int nbm)
 	return (FALSE);
 }
 
-void	is_dead(t_philo *p, t_simulation *sim)
-{
-	pthread_mutex_lock(&sim->mutex[PRINT]);
-	ft_print(p, pepsi);
-	pthread_mutex_unlock(&sim->mutex[PRINT]);
-}
-
 void	monitoring(t_simulation *sim)
 {
 	int				k;
@@ -65,7 +58,7 @@ void	monitoring(t_simulation *sim)
 			break ;
 		if (death)
 		{
-			is_dead(sim->philo[k], sim);
+			ft_print(sim->philo[k], dead);
 			break ;
 		}
 		k = (k + 1) % sim->nbp;
@@ -87,15 +80,9 @@ void	*rout(void *a)
 	while (check_simu(p))
 	{
 		pthread_mutex_lock(&p->forkg->fork);
-		pthread_mutex_lock(&p->mutex[PRINT]);
-		printf("%ld %d has taken a fork\n", gettimeinms() - p->start,
-			p->num + 1);
-		pthread_mutex_unlock(&p->mutex[PRINT]);
+		ft_print(p, take);
 		pthread_mutex_lock(&p->forkd->fork);
-		pthread_mutex_lock(&p->mutex[PRINT]);
-		printf("%ld %d has taken a fork\n", gettimeinms() - p->start,
-			p->num + 1);
-		pthread_mutex_unlock(&p->mutex[PRINT]);
+		ft_print(p, take);
 		eat(p);
 		pthread_mutex_unlock(&p->forkg->fork);
 		pthread_mutex_unlock(&p->forkd->fork);
