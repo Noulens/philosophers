@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/03 19:26:07 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:54:04 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void	*rout(void *a)
 			p->num + 1);
 		pthread_mutex_unlock(&p->mutex[PRINT]);
 		eat(p);
-		pthread_mutex_unlock(&p->forkd->fork);
 		pthread_mutex_unlock(&p->forkg->fork);
+		pthread_mutex_unlock(&p->forkd->fork);
 		if (check_simu(p))
 			sleeping(p);
 		else
