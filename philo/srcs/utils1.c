@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 21:00:01 by waxxy             #+#    #+#             */
-/*   Updated: 2022/11/02 15:47:41 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:49:20 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,9 @@ void	ft_print(t_philo *p, t_status action)
 	else if (action == dort)
 		printf("%ld %d is eating\n", gettimeinms() - p->start, p->num + 1);
 	else if (action == pepsi)
-		printf("%ld %d died\n", gettimeinms() - p->start, p->num + 1);
+	{
+		pthread_mutex_lock(&p->mutex[CHECK_STATUS]);
+		printf("%ld %d died\n", p->tod - p->start, p->num + 1);
+		pthread_mutex_unlock(&p->mutex[CHECK_STATUS]);
+	}
 }

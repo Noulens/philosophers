@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:26:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/02 18:45:28 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/03 17:33:24 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 int	inittime(t_simulation *sim)
 {
-	struct timeval	st;
 	unsigned int	i;
 
-	if (gettimeofday(&st, NULL) == 1)
-		return (write(2, "Error in getting start time\n", 27), 1);
 	sim->start = gettimeinms();
 	i = -1;
 	while (++i, i < sim->nbp)

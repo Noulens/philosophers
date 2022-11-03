@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/02 15:46:44 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:12:39 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_philo
 {
 	pthread_t		name;
 	int				num;
-	t_status		status;
+	time_t			tod;
 	time_t			last_meal;
 	unsigned int	meals;
 	t_forks			*forkd;

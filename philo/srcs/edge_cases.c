@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 10:53:23 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/02 10:54:00 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:16:26 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	die(t_philo *p)
 		usleep(100);
 	}
 	printf("%ld %d died\n", gettimeinms() - p->start, p->num + 1);
-	p->status = pepsi;
 }
 
 void	*thread_routine_one(void *a)

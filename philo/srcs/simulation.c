@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/02 18:38:00 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:50:18 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ int	diner_finish(t_simulation *sim, int nbm)
 
 	if (nbm == -1)
 		return (FALSE);
+	i = 0;
+	total = 0;
 	while (i < sim->nbp)
 	{
 		pthread_mutex_lock(&sim->mutex[CHECK_MEALS]);
 			total += sim->philo[i]->meals;
 		pthread_mutex_unlock(&sim->mutex[CHECK_MEALS]);
 		i++;
-		usleep(50);
 	}
 	if (total == nbm * sim->nbp)
 	{
@@ -40,18 +41,19 @@ int	diner_finish(t_simulation *sim, int nbm)
 
 void	is_dead(t_philo *p, t_simulation *sim)
 {
-	pthread_mutex_lock(&sim->mutex[PRINT]);
-	ft_print(p, pepsi);
-	pthread_mutex_unlock(&sim->mutex[PRINT]);
 	pthread_mutex_lock(&sim->mutex[CHECK_DONE]);
 	sim->is_on = FALSE;
 	pthread_mutex_unlock(&sim->mutex[CHECK_DONE]);
+	pthread_mutex_lock(&sim->mutex[PRINT]);
+	ft_print(p, pepsi);
+	pthread_mutex_unlock(&sim->mutex[PRINT]);
 }
 
 void	monitoring(t_simulation *sim)
 {
 	int				k;
 	unsigned int	meal;
+	int				check;
 
 	k = 0;
 	while (TRUE)
@@ -59,9 +61,12 @@ void	monitoring(t_simulation *sim)
 		pthread_mutex_lock(&sim->mutex[CHECK_MEALS]);
 		meal = sim->philo[k]->last_meal;
 		pthread_mutex_unlock(&sim->mutex[CHECK_MEALS]);
-		if (meal && diner_finish(sim, sim->nbm) == TRUE)
+		pthread_mutex_lock(&sim->mutex[CHECK_DONE]);
+		check = sim->is_on;
+		pthread_mutex_unlock(&sim->mutex[CHECK_DONE]);
+		if ((meal && diner_finish(sim, sim->nbm) == TRUE))
 			break ;
-		if (meal && gettimeinms() - meal > sim->ttd)
+		if (check == FALSE)
 		{
 			is_dead(sim->philo[k], sim);
 			break ;
@@ -97,7 +102,10 @@ void	*rout(void *a)
 		eat(p);
 		pthread_mutex_unlock(&p->forkd->fork);
 		pthread_mutex_unlock(&p->forkg->fork);
-		sleeping(p);
+		if (check_simu(p))
+			sleeping(p);
+		else
+			break ;
 	}
 	return (NULL);
 }
@@ -122,9 +130,11 @@ int	simulation(t_simulation *b)
 		}
 	}
 	monitoring(b);
-	while (--i)
+	i = -1;
+	while (++i, i < (int)b->nbp)
 	{
-		pthread_join(b->philo[i]->name, NULL);
+		if (pthread_join(b->philo[i]->name, NULL))
+			write(2, "failed to join at exit", 22);
 	}
 	return (SUCCES);
 }
