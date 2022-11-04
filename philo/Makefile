@@ -6,7 +6,7 @@
 #    By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/11/04 16:47:19 by tnoulens         ###   ########.fr        #
+#    Updated: 2022/11/04 16:52:34 by tnoulens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ BUILDIR		=	build
 INCLDIR		=	includes/
 
 SRCS		=	main.c\
-				utils1.c\
+				utils.c\
 				time_utils.c\
 				simulation.c\
 				initialisation.c\
