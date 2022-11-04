@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/04 16:37:21 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:03:32 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int argc, char **argv)
 	{
 		if (initphilo(&sm, -1) == 1)
 			return (write(2, "enomem\n", 7), 1);
-		if (simulation(&sm) != SUCCES)
+		if (simulation(&sm, -1) != SUCCES)
 			write(2, "failed\n", 7);
 		destroy_fork(&sm, sm.nbp);
 		clean_philo_mem(&sm);

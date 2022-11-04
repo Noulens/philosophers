@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/04 16:50:54 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:06:56 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	monitoring(t_simulation *sim)
 /* try to eat */
 /* sleep */
 /* think */
+/* repeat */
 
 void	*rout(void *a)
 {
@@ -87,44 +88,43 @@ void	*rout(void *a)
 		if (check_simu(p))
 		{
 			ft_print(p, take);
-			eat(p);
+			eating(p);
 		}
 		pthread_mutex_unlock(&p->forkg->fork);
 		pthread_mutex_unlock(&p->forkd->fork);
 		if (check_simu(p))
 			sleeping(p);
 		if (check_simu(p))
-			think(p);
+			thinking(p);
 		else
 			break ;
 	}
 	return (NULL);
 }
 
-int	simulation(t_simulation *b)
+int	simulation(t_simulation *b, int idx)
 {
-	int	i;
-
-	i = -1;
 	if (inittime(b) == 1)
 		return (FAIL);
 	if (b->nbp == 1)
 		return (diner_one(b->philo[0]), b->is_on = FALSE, SUCCES);
-	while (++i, i < (int)b->nbp)
+	while (++idx, idx < (int)b->nbp)
 	{
-		if (pthread_create(&b->philo[i]->name, NULL, rout, b->philo[i]))
+		if (idx % 2 == 0)
+			usleep(10);
+		if (pthread_create(&b->philo[idx]->name, NULL, rout, b->philo[idx]))
 		{
-			while (--i)
-				if (pthread_join(b->philo[i]->name, NULL))
+			while (--idx)
+				if (pthread_join(b->philo[idx]->name, NULL))
 					write(2, "failed to join", 14);
 			return (FAIL);
 		}
 	}
 	monitoring(b);
-	i = -1;
-	while (++i, i < (int)b->nbp)
+	idx = -1;
+	while (++idx, idx < (int)b->nbp)
 	{
-		if (pthread_join(b->philo[i]->name, NULL))
+		if (pthread_join(b->philo[idx]->name, NULL))
 			write(2, "failed to join at exit", 22);
 	}
 	return (SUCCES);
