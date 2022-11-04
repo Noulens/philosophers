@@ -24,6 +24,11 @@ int	check_simu(t_philo *p)
 	return (TRUE);
 }
 
+unsigned int	ttt(t_philo *p)
+{
+	return (gettimeinms());
+}
+
 void	sleeping(t_philo *p)
 {
 	time_t	wake_time;

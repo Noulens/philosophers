@@ -113,6 +113,7 @@ int				simulation(t_simulation *b, int idx);
 void			sleeping(t_philo *p);
 void			eating(t_philo *p);
 void			thinking(t_philo *p);
+unsigned int	ttt(t_philo *p);
 void			*thread_routine_one(void *a);
 int				diner_one(t_philo *b);
 void			die(t_philo *p);
