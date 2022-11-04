@@ -6,7 +6,7 @@
 #    By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/11/04 16:26:03 by tnoulens         ###   ########.fr        #
+#    Updated: 2022/11/04 16:47:19 by tnoulens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS		=	main.c\
 				simulation.c\
 				initialisation.c\
 				cleaning.c\
-				actions.c\
+				status.c\
 				edge_cases.c
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)

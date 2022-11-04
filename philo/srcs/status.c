@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   actions.c                                          :+:      :+:    :+:   */
+/*   status.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:04:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/04 16:43:15 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:45:33 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	sleeping(t_philo *p)
 		usleep(100);
 }
 
-void	eat(t_philo *p)
+void	eating(t_philo *p)
 {
 	time_t	eat_time;
 	time_t	lim;
@@ -79,7 +79,7 @@ void	eat(t_philo *p)
 		usleep(100);
 }
 
-void	think(t_philo *p)
+void	thinking(t_philo *p)
 {
 	time_t	think_time;
 	time_t	lim;
