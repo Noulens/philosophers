@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:26:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/03 19:24:18 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:39:17 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,6 @@ int	inittime(t_simulation *sim)
 	return (0);
 }
 
-unsigned int	maxf(unsigned int nbp, int o)
-{
-	if (o == 0)
-		return (nbp - 1);
-	else
-		return (o - 1);
-}
-
 static int	initfork(int o, unsigned int nbp, t_simulation *sm)
 {
 	sm->forks = malloc(sizeof(t_forks *) * (nbp + 1));
@@ -41,14 +33,13 @@ static int	initfork(int o, unsigned int nbp, t_simulation *sm)
 		sm->forks[o] = (t_forks *)malloc(sizeof(t_forks));
 		if (!sm->forks[o])
 			return (clean_philo_mem(sm), write(2, "\nenomem\n", 8), 1);
-		sm->forks[o]->is_taken = FALSE;
 	}
 	sm->forks[nbp] = NULL;
 	while (++o, o < (int)nbp)
 	{
 		sm->philo[o]->forkg = sm->forks[o];
 		if (nbp != 1)
-			sm->philo[o]->forkd = sm->forks[maxf(nbp, o)];
+			sm->philo[o]->forkd = sm->forks[(o + 1) % nbp];
 		sm->philo[o]->mutex = sm->mutex;
 	}
 	while (--o, o >= 0)
@@ -82,31 +73,29 @@ int	initsim(char **v, t_simulation *sim)
 	return (1);
 }
 
-int	initphilo(t_simulation *sim)
+int	initphilo(t_simulation *sim, int idx)
 {
-	unsigned int	o;
-
-	o = -1;
 	sim->forks = NULL;
 	sim->philo = (t_philo **)malloc(sizeof(t_philo *) * (sim->nbp + 1));
 	if (sim->philo == NULL)
 		return (clean_philo_mem(sim), 1);
-	while (++o, o < sim->nbp)
+	while (++idx, idx < (int)sim->nbp)
 	{
-		sim->philo[o] = (t_philo *)malloc(sizeof(t_philo));
-		if (!sim->philo[o])
+		sim->philo[idx] = (t_philo *)malloc(sizeof(t_philo));
+		if (!sim->philo[idx])
 			return (clean_philo_mem(sim), 1);
-		sim->philo[o]->num = o;
-		sim->philo[o]->meals = 0;
-		sim->philo[o]->last_meal = 0;
-		sim->philo[o]->tod = 0;
-		sim->philo[o]->tte = sim->tte;
-		sim->philo[o]->ttd = sim->ttd;
-		sim->philo[o]->tts = sim->tts;
-		sim->philo[o]->nbm = sim->nbm;
-		sim->philo[o]->nbp = sim->nbp;
-		sim->philo[o]->on = &sim->is_on;
+		sim->philo[idx]->num = idx;
+		sim->philo[idx]->meals = 0;
+		sim->philo[idx]->last_meal = 0;
+		sim->philo[idx]->tod = 0;
+		sim->philo[idx]->done = FALSE;
+		sim->philo[idx]->tte = sim->tte;
+		sim->philo[idx]->ttd = sim->ttd;
+		sim->philo[idx]->tts = sim->tts;
+		sim->philo[idx]->nbm = sim->nbm;
+		sim->philo[idx]->nbp = sim->nbp;
+		sim->philo[idx]->on = &sim->is_on;
 	}
-	sim->philo[o] = NULL;
+	sim->philo[idx] = NULL;
 	return (initfork((int)sim->nbp, sim->nbp, sim));
 }

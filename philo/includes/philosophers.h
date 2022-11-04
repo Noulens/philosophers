@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/03 20:03:29 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:37:41 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef enum e_mutex
 typedef struct s_fork
 {
 	pthread_mutex_t	fork;
-	bool			is_taken;
 }	t_forks;
 
 typedef struct s_philo
@@ -85,6 +84,7 @@ typedef struct s_philo
 	time_t			start;
 	pthread_mutex_t	*mutex;
 	bool			*on;
+	bool			done;
 }	t_philo;
 
 typedef struct s_simulation
@@ -97,7 +97,6 @@ typedef struct s_simulation
 	t_philo			**philo;
 	t_forks			**forks;
 	bool			is_on;
-	bool			is_done;
 	time_t			start;
 	pthread_mutex_t	*mutex;
 }	t_simulation;
@@ -106,13 +105,14 @@ typedef struct s_simulation
 
 	// initialisation
 int				initsim(char **v, t_simulation *sim);
-int				initphilo(t_simulation *sim);
+int				initphilo(t_simulation *sim, int idx);
 int				inittime(t_simulation *sim);
 
 	// actions
 int				simulation(t_simulation *b);
 void			sleeping(t_philo *p);
 void			eat(t_philo *p);
+void			think(t_philo *p);
 void			*thread_routine_one(void *a);
 int				diner_one(t_philo *b);
 void			die(t_philo *p);

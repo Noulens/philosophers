@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:34 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/02 13:02:37 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:37:21 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char **argv)
 		argerror();
 	else
 	{
-		if (initphilo(&sm) == 1)
+		if (initphilo(&sm, -1) == 1)
 			return (write(2, "enomem\n", 7), 1);
 		if (simulation(&sm) != SUCCES)
 			write(2, "failed\n", 7);

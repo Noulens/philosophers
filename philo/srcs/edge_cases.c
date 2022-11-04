@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 10:53:23 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/03 18:16:26 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/04 15:33:03 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	die(t_philo *p)
 	{
 		usleep(100);
 	}
-	printf("%ld %d died\n", gettimeinms() - p->start, p->num + 1);
+	pthread_mutex_lock(&p->mutex[CHECK_STATUS]);
+	p->tod = gettimeinms();
+	pthread_mutex_unlock(&p->mutex[CHECK_STATUS]);
+	ft_print(p, dead);
 }
 
 void	*thread_routine_one(void *a)
@@ -29,16 +32,10 @@ void	*thread_routine_one(void *a)
 	t_philo	*p;
 
 	p = (t_philo *)a;
-	if (p->forkg->is_taken == FALSE)
-	{
-		pthread_mutex_lock(&p->forkg->fork);
-		printf("%ld %d has taken a fork\n", gettimeinms() - p->start,
-			p->num + 1);
-		p->forkg->is_taken = TRUE;
-	}
-	die(p);
+	pthread_mutex_lock(&p->forkg->fork);
+	ft_print(p, take);
 	pthread_mutex_unlock(&p->forkg->fork);
-	p->forkg->is_taken = FALSE;
+	die(p);
 	return (NULL);
 }
 

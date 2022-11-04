@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/03 20:03:34 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:42:48 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,15 @@ int	diner_finish(t_simulation *sim, int nbm)
 	while (i < sim->nbp)
 	{
 		pthread_mutex_lock(&sim->mutex[CHECK_MEALS]);
-			total += sim->philo[i]->meals;
+		if (sim->philo[i]->done == TRUE)
+			total += 1;
 		pthread_mutex_unlock(&sim->mutex[CHECK_MEALS]);
 		i++;
+		usleep(10);
 	}
-	if (total == nbm * sim->nbp)
+	if (total >= sim->nbp)
 	{
 		pthread_mutex_lock(&sim->mutex[CHECK_DONE]);
-		sim->is_done = TRUE;
 		sim->is_on = FALSE;
 		pthread_mutex_unlock(&sim->mutex[CHECK_DONE]);
 		return (TRUE);
@@ -62,32 +63,38 @@ void	monitoring(t_simulation *sim)
 			break ;
 		}
 		k = (k + 1) % sim->nbp;
-		usleep(100);
+		usleep(10);
 	}
 }
 
-		/* Check if simulation is on */
-		/* if even then think */
-		/* try to eat */
-		/* sleep */
-		/* think */
+/* Check if simulation is on */
+/* if even then think */
+/* try to eat */
+/* sleep */
+/* think */
 
 void	*rout(void *a)
 {
 	t_philo	*p;
 
 	p = (t_philo *)a;
-	while (check_simu(p))
+	while (TRUE)
 	{
 		pthread_mutex_lock(&p->forkg->fork);
-		ft_print(p, take);
+		if (check_simu(p))
+			ft_print(p, take);
 		pthread_mutex_lock(&p->forkd->fork);
-		ft_print(p, take);
-		eat(p);
+		if (check_simu(p))
+		{
+			ft_print(p, take);
+			eat(p);
+		}
 		pthread_mutex_unlock(&p->forkg->fork);
 		pthread_mutex_unlock(&p->forkd->fork);
 		if (check_simu(p))
 			sleeping(p);
+		if (check_simu(p))
+			think(p);
 		else
 			break ;
 	}

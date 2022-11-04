@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 15:10:43 by waxxy             #+#    #+#             */
-/*   Updated: 2022/11/03 17:32:58 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:13:52 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ time_t	gettimeinms(void)
 
 	if (gettimeofday(&tv, NULL) == 1)
 		return (write(2, "Error in getting start time\n", 27), 1);
-	return ((tv.tv_sec * M) + (tv.tv_usec / M));
+	return (multiply_bitewise(tv.tv_sec, M) + (tv.tv_usec / M));
 }
