@@ -21,11 +21,20 @@ int	check_simu(t_philo *p)
 		return (FALSE);
 	}
 	pthread_mutex_unlock(&p->mutex[CHECK_DONE]);
+	usleep(10);
+	pthread_mutex_lock(&p->mutex[CHECK_MEALS]);
+	if (p->done == TRUE)
+	{
+		pthread_mutex_unlock(&p->mutex[CHECK_MEALS]);
+		return (FALSE);
+	}
+	pthread_mutex_unlock(&p->mutex[CHECK_MEALS]);
 	return (TRUE);
 }
 
 unsigned int	ttt(t_philo *p)
 {
+	(void)p;
 	return (gettimeinms());
 }
 
@@ -69,7 +78,7 @@ void	eating(t_philo *p)
 	p->last_meal = gettimeinms();
 	pthread_mutex_unlock(&p->mutex[CHECK_MEALS]);
 	ft_print(p, mange);
-	if (eat_time > lim)
+	if ((eat_time > lim))
 	{
 		while (gettimeinms() < lim)
 			usleep(100);
@@ -89,9 +98,9 @@ void	thinking(t_philo *p)
 	time_t	think_time;
 	time_t	lim;
 
-	think_time = gettimeinms() + p->ttt;
+	think_time = ((p->tte + p->tts) / 2) + p->start;
 	pthread_mutex_lock(&p->mutex[CHECK_MEALS]);
-	lim = p->last_meal + p->ttd;
+	lim = gettimeinms() + p->last_meal + p->ttd;
 	pthread_mutex_unlock(&p->mutex[CHECK_MEALS]);
 	ft_print(p, pense);
 	if (think_time > lim)

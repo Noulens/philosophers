@@ -109,7 +109,7 @@ re:				fclean
 				@$(MAKE) -s all
 
 lc:			all
-				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./philo 2 400 100 100
+				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./philo 200 410 200 200
 
 dr:			all
-				valgrind --tool=helgrind -s ./philo 5 100 1000 100			
+				valgrind --tool=helgrind -s ./philo 5 410 200 200 10	

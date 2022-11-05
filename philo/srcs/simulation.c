@@ -12,6 +12,9 @@
 
 #include "philosophers.h"
 
+/* TO DO : DL à corriger  et implémenter le calcul du ttt changer le init fork 
+pour que ca init dans l'ordre croissant */
+
 int	diner_finish(t_simulation *sim, int nbm)
 {
 	unsigned int	i;
@@ -28,7 +31,7 @@ int	diner_finish(t_simulation *sim, int nbm)
 			total += 1;
 		pthread_mutex_unlock(&sim->mutex[CHECK_MEALS]);
 		i++;
-		usleep(10);
+		usleep(100);
 	}
 	if (total >= sim->nbp)
 	{
@@ -57,28 +60,32 @@ void	monitoring(t_simulation *sim)
 		pthread_mutex_unlock(&sim->mutex[CHECK_STATUS]);
 		if ((meal && diner_finish(sim, sim->nbm) == TRUE))
 			break ;
+		if ((gettimeinms() - sim->start + sim->tte) > (meal + sim->ttd))
+		{
+			pthread_mutex_lock(&sim->mutex[CHECK_STATUS]);
+			sim->philo[k]->tod = sim->ttd;
+			pthread_mutex_unlock(&sim->mutex[CHECK_STATUS]);
+			pthread_mutex_lock(&sim->mutex[CHECK_DONE]);
+			sim->is_on = FALSE;
+			pthread_mutex_unlock(&sim->mutex[CHECK_DONE]);
+		}
 		if (death)
 		{
 			ft_print(sim->philo[k], dead);
 			break ;
 		}
 		k = (k + 1) % sim->nbp;
-		usleep(10);
+		usleep(100);
 	}
 }
-
-/* Check if simulation is on */
-/* if even then think */
-/* try to eat */
-/* sleep */
-/* think */
-/* repeat */
 
 void	*rout(void *a)
 {
 	t_philo	*p;
 
 	p = (t_philo *)a;
+	if (p->num % 2 != 0)
+		thinking(p);
 	while (TRUE)
 	{
 		pthread_mutex_lock(&p->forkg->fork);
@@ -94,8 +101,8 @@ void	*rout(void *a)
 		pthread_mutex_unlock(&p->forkd->fork);
 		if (check_simu(p))
 			sleeping(p);
-		if (check_simu(p))
-			thinking(p);
+		//if (check_simu(p))
+		//	thinking(p);
 		else
 			break ;
 	}
@@ -110,8 +117,6 @@ int	simulation(t_simulation *b, int idx)
 		return (diner_one(b->philo[0]), b->is_on = FALSE, SUCCES);
 	while (++idx, idx < (int)b->nbp)
 	{
-		if (idx % 2 == 0)
-			usleep(10);
 		if (pthread_create(&b->philo[idx]->name, NULL, rout, b->philo[idx]))
 		{
 			while (--idx)
@@ -120,6 +125,7 @@ int	simulation(t_simulation *b, int idx)
 			return (FAIL);
 		}
 	}
+	usleep(100);
 	monitoring(b);
 	idx = -1;
 	while (++idx, idx < (int)b->nbp)
