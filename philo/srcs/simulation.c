@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/04 17:06:56 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/06 15:12:42 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,22 @@ void	monitoring(t_simulation *sim)
 	while (TRUE)
 	{
 		pthread_mutex_lock(&sim->mutex[CHECK_MEALS]);
-		meal = sim->philo[k]->last_meal;
+		meal = sim->philo[k]->last_meal - sim->start;
 		pthread_mutex_unlock(&sim->mutex[CHECK_MEALS]);
 		pthread_mutex_lock(&sim->mutex[CHECK_STATUS]);
 		death = sim->philo[k]->tod;
 		pthread_mutex_unlock(&sim->mutex[CHECK_STATUS]);
 		if ((meal && diner_finish(sim, sim->nbm) == TRUE))
 			break ;
-		if ((gettimeinms() - sim->start + sim->tte) > (meal + sim->ttd))
-		{
-			pthread_mutex_lock(&sim->mutex[CHECK_STATUS]);
-			sim->philo[k]->tod = sim->ttd;
-			pthread_mutex_unlock(&sim->mutex[CHECK_STATUS]);
-			pthread_mutex_lock(&sim->mutex[CHECK_DONE]);
-			sim->is_on = FALSE;
-			pthread_mutex_unlock(&sim->mutex[CHECK_DONE]);
-		}
+		//if ((gettimeinms() - sim->start + sim->tte) > (meal + sim->ttd))
+		//{
+		//	pthread_mutex_lock(&sim->mutex[CHECK_STATUS]);
+		//	sim->philo[k]->tod = gettimeinms() - sim->start;
+		//	pthread_mutex_unlock(&sim->mutex[CHECK_STATUS]);
+		//	pthread_mutex_lock(&sim->mutex[CHECK_DONE]);
+		//	sim->is_on = FALSE;
+		//	pthread_mutex_unlock(&sim->mutex[CHECK_DONE]);
+		//}
 		if (death)
 		{
 			ft_print(sim->philo[k], dead);
@@ -85,7 +85,7 @@ void	*rout(void *a)
 
 	p = (t_philo *)a;
 	if (p->num % 2 != 0)
-		thinking(p);
+		usleep(100);
 	while (TRUE)
 	{
 		pthread_mutex_lock(&p->forkg->fork);
@@ -101,8 +101,8 @@ void	*rout(void *a)
 		pthread_mutex_unlock(&p->forkd->fork);
 		if (check_simu(p))
 			sleeping(p);
-		//if (check_simu(p))
-		//	thinking(p);
+		if (check_simu(p))
+			thinking(p);
 		else
 			break ;
 	}

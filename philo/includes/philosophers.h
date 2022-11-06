@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:56:16 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/04 17:05:56 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/06 14:51:56 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int				simulation(t_simulation *b, int idx);
 void			sleeping(t_philo *p);
 void			eating(t_philo *p);
 void			thinking(t_philo *p);
-unsigned int	ttt(t_philo *p);
 void			*thread_routine_one(void *a);
 int				diner_one(t_philo *b);
 void			die(t_philo *p);
@@ -133,5 +132,13 @@ void			ft_print(t_philo *p, t_status action);
 	// time utilities
 time_t			gettimeinms(void);
 unsigned long	multiply_bitewise(long a, long b);
+void			getlimthink(t_philo *p, time_t *lim, time_t *think_time);
+bool			getlimeat(t_philo *p, time_t *lim, time_t *eat_time);
+void			getlimsleep(t_philo *p, time_t *lim, time_t *wake_time);
+
+	// die cases
+void			diethinking(t_philo *p, time_t *lim);
+void			dieeating(t_philo *p, time_t *lim);
+void    		diesleeping(t_philo *p, time_t *lim);
 
 #endif
