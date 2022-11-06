@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 21:00:01 by waxxy             #+#    #+#             */
-/*   Updated: 2022/11/06 13:43:11 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/06 15:14:01 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ void	ft_print(t_philo *p, t_status action)
 {
 	pthread_mutex_lock(&p->mutex[PRINT]);
 	if (action == take)
-		printf(BLUE"%ld %d has taken a fork\n"RESET, gettimeinms() - p->start,
+		printf(DARK_BLUE"%ld %d has taken a fork\n"RESET, gettimeinms() - p->start,
 			p->num + 1);
 	else if (action == dort)
 		printf(GREEN"%ld %d is sleeping\n"RESET, gettimeinms() - p->start, p->num + 1);
 	else if (action == pense)
 		printf(RED"%ld %d is thinking\n"RESET, gettimeinms() - p->start, p->num + 1);
 	else if (action == mange)
-		printf(DARK_BLUE"%ld %d is eating\n"RESET, gettimeinms() - p->start, p->num + 1);
+		printf(BLUE"%ld %d is eating\n"RESET, gettimeinms() - p->start, p->num + 1);
 	else if (action == dead)
 	{
 		pthread_mutex_lock(&p->mutex[CHECK_STATUS]);
