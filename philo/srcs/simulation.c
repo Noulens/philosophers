@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/07 22:13:06 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 23:03:46 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	diner_finish(t_simulation *sim, int nbm)
 		total += sim->philo[i]->done;
 		pthread_mutex_unlock(&sim->mutex[CHECK_MEALS]);
 		i++;
-		usleep(100);
+		usleep(50);
 	}
 	if (total >= sim->nbp)
 	{
