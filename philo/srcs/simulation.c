@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/07 17:14:38 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:34:01 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,12 @@ void	*rout(void *a)
 		choosefork(p);
 		pthread_mutex_unlock(&p->forkg->fork);
 		pthread_mutex_unlock(&p->forkd->fork);
-		if (check_simu(p))
-			sleeping(p);
-		if (check_simu(p))
-			thinking(p);
-		else
+		if (!check_simu(p))
 			break ;
+		sleeping(p);
+		if (!check_simu(p))
+			break ;	
+		thinking(p);
 	}
 	return (NULL);
 }
