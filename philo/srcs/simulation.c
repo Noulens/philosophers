@@ -6,14 +6,11 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/07 15:15:56 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:14:38 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-/* TO DO : DL à corriger  et implémenter le calcul du ttt changer le init fork 
-pour que ca init dans l'ordre croissant */
 
 int	diner_finish(t_simulation *sim, int nbm)
 {
@@ -27,11 +24,10 @@ int	diner_finish(t_simulation *sim, int nbm)
 	while (i < sim->nbp)
 	{
 		pthread_mutex_lock(&sim->mutex[CHECK_MEALS]);
-		if (sim->philo[i]->done == TRUE)
-			total += 1;
+		total += sim->philo[i]->done;
 		pthread_mutex_unlock(&sim->mutex[CHECK_MEALS]);
 		i++;
-		usleep(10);
+		usleep(100);
 	}
 	if (total >= sim->nbp)
 	{
@@ -103,8 +99,11 @@ void	*rout(void *a)
 	t_philo	*p;
 
 	p = (t_philo *)a;
-	if (p->num % 2 != 0)
-		usleep(10);
+	if (p->num % 2 == 0)
+	{
+		ft_print(p, pense);
+		usleep((p->tte) * M);
+	}
 	while (TRUE)
 	{
 		choosefork(p);

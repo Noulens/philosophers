@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 12:13:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/07 15:20:36 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:32:08 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	dieeating(t_philo *p, time_t *lim, int mod)
 	}
 	else if (mod == 1)
 	{
-		while (gettimeinms() - p->start < *lim)
+		while ((gettimeinms() - p->start) < *lim)
 			usleep(100);
 		pthread_mutex_lock(&p->mutex[CHECK_DONE]);
 		*(p->on) = FALSE;

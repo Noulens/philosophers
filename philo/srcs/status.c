@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:04:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/07 15:20:49 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:59:04 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_simu(t_philo *p)
 		return (FALSE);
 	}
 	pthread_mutex_unlock(&p->mutex[CHECK_DONE]);
-	usleep(10);
+	usleep(100);
 	pthread_mutex_lock(&p->mutex[CHECK_MEALS]);
 	if (p->done == TRUE)
 	{
@@ -57,14 +57,14 @@ void	eating(t_philo *p)
 
 	lim2 = (gettimeinms() - p->start + p->tte);
 	if (getlimeat(p, &lim, &eatime, &lm))
-		return ;
+		return (ft_print(p, mange), (void)0);
 	ft_print(p, mange);
 	if (eatime > lim)
 	{
 		dieeating(p, &lim, 0);
 		return ;
 	}
-	else if (lim2 > (lm + p->ttd))
+	else if (lim2 > (lm + p->ttd + 10))
 	{
 		lm = lm + p->ttd;
 		dieeating(p, &lm, 1);

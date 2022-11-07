@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 21:00:01 by waxxy             #+#    #+#             */
-/*   Updated: 2022/11/07 15:21:47 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:01:28 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,21 @@ void	ft_print(t_philo *p, t_status action)
 {
 	pthread_mutex_lock(&p->mutex[PRINT]);
 	if (action == take)
-		printf(DARK_BLUE"%ld %d has taken a fork\n"RESET,
+		printf("%ld %d has taken a fork\n",
 			gettimeinms() - p->start, p->num + 1);
 	else if (action == dort)
-		printf(GREEN"%ld %d is sleeping\n"RESET,
+		printf("%ld %d is sleeping\n",
 			gettimeinms() - p->start, p->num + 1);
 	else if (action == pense)
-		printf(RED"%ld %d is thinking\n"RESET,
+		printf("%ld %d is thinking\n",
 			gettimeinms() - p->start, p->num + 1);
 	else if (action == mange)
-		printf(BLUE"%ld %d is eating\n"RESET,
+		printf("%ld %d is eating\n",
 			gettimeinms() - p->start, p->num + 1);
 	else if (action == dead)
 	{
 		pthread_mutex_lock(&p->mutex[CHECK_STATUS]);
-		printf(YELLOW"%ld %d died\n"RESET, p->tod, p->num + 1);
+		printf("%ld %d died\n", p->tod, p->num + 1);
 		pthread_mutex_unlock(&p->mutex[CHECK_STATUS]);
 	}
 	pthread_mutex_unlock(&p->mutex[PRINT]);
