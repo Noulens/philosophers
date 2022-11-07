@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/06 15:12:42 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:15:56 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	diner_finish(t_simulation *sim, int nbm)
 			total += 1;
 		pthread_mutex_unlock(&sim->mutex[CHECK_MEALS]);
 		i++;
-		usleep(100);
+		usleep(10);
 	}
 	if (total >= sim->nbp)
 	{
@@ -60,15 +60,6 @@ void	monitoring(t_simulation *sim)
 		pthread_mutex_unlock(&sim->mutex[CHECK_STATUS]);
 		if ((meal && diner_finish(sim, sim->nbm) == TRUE))
 			break ;
-		//if ((gettimeinms() - sim->start + sim->tte) > (meal + sim->ttd))
-		//{
-		//	pthread_mutex_lock(&sim->mutex[CHECK_STATUS]);
-		//	sim->philo[k]->tod = gettimeinms() - sim->start;
-		//	pthread_mutex_unlock(&sim->mutex[CHECK_STATUS]);
-		//	pthread_mutex_lock(&sim->mutex[CHECK_DONE]);
-		//	sim->is_on = FALSE;
-		//	pthread_mutex_unlock(&sim->mutex[CHECK_DONE]);
-		//}
 		if (death)
 		{
 			ft_print(sim->philo[k], dead);
@@ -79,14 +70,9 @@ void	monitoring(t_simulation *sim)
 	}
 }
 
-void	*rout(void *a)
+void	choosefork(t_philo *p)
 {
-	t_philo	*p;
-
-	p = (t_philo *)a;
 	if (p->num % 2 != 0)
-		usleep(100);
-	while (TRUE)
 	{
 		pthread_mutex_lock(&p->forkg->fork);
 		if (check_simu(p))
@@ -97,6 +83,31 @@ void	*rout(void *a)
 			ft_print(p, take);
 			eating(p);
 		}
+	}
+	else
+	{
+		pthread_mutex_lock(&p->forkd->fork);
+		if (check_simu(p))
+			ft_print(p, take);
+		pthread_mutex_lock(&p->forkg->fork);
+		if (check_simu(p))
+		{
+			ft_print(p, take);
+			eating(p);
+		}
+	}
+}
+
+void	*rout(void *a)
+{
+	t_philo	*p;
+
+	p = (t_philo *)a;
+	if (p->num % 2 != 0)
+		usleep(10);
+	while (TRUE)
+	{
+		choosefork(p);
 		pthread_mutex_unlock(&p->forkg->fork);
 		pthread_mutex_unlock(&p->forkd->fork);
 		if (check_simu(p))

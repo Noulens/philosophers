@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 15:10:43 by waxxy             #+#    #+#             */
-/*   Updated: 2022/11/06 14:57:14 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 13:50:20 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,19 @@ void	getlimthink(t_philo *p, time_t *lim, time_t *think_time)
 	*lim = gettimeinms() + p->last_meal + p->ttd;
 	*think_time = (p->ttd - (gettimeinms() - p->last_meal) - p->tte) / 2;
 	pthread_mutex_unlock(&p->mutex[CHECK_MEALS]);
-	if (*think_time < 0)
-		*think_time = gettimeinms();
+	if (*think_time <= 0)
+		*think_time = 0;
 	else if (*think_time > 550)
 		*think_time = 550;
 }
 
-bool	getlimeat(t_philo *p, time_t *lim, time_t *eat_time)
+bool	getlimeat(t_philo *p, time_t *lim, time_t *eatime, time_t *lm)
 {
-	*eat_time = gettimeinms() + p->tte;
+	*eatime = gettimeinms() + p->tte;
 	*lim = gettimeinms() + p->ttd;
 	pthread_mutex_lock(&p->mutex[CHECK_MEALS]);
 	p->meals++;
+	*lm = p->last_meal;
 	if (p->nbm != -1 && (int)p->meals == p->nbm)
 	{
 		p->done = TRUE;

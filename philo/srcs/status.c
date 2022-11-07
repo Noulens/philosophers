@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:04:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/06 14:54:41 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:20:49 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,27 @@ void	sleeping(t_philo *p)
 
 void	eating(t_philo *p)
 {
-	time_t	eat_time;
+	time_t	eatime;
 	time_t	lim;
+	time_t	lim2;
+	time_t	lm;
 
-	if (getlimeat(p, &lim, &eat_time))
+	lim2 = (gettimeinms() - p->start + p->tte);
+	if (getlimeat(p, &lim, &eatime, &lm))
 		return ;
 	ft_print(p, mange);
-	if (eat_time > lim)
+	if (eatime > lim)
 	{
-		dieeating(p, &lim);
+		dieeating(p, &lim, 0);
 		return ;
 	}
-	while (gettimeinms() < eat_time)
+	else if (lim2 > (lm + p->ttd))
+	{
+		lm = lm + p->ttd;
+		dieeating(p, &lm, 1);
+		return ;
+	}
+	while (gettimeinms() < eatime)
 		usleep(100);
 }
 
@@ -71,12 +80,13 @@ void	thinking(t_philo *p)
 	time_t	lim;
 
 	getlimthink(p, &lim, &think_time);
+	if (think_time == 0)
+		return ;
 	ft_print(p, pense);
 	if (think_time > lim)
 	{
 		diethinking(p, &lim);
 		return ;
 	}
-	while (gettimeinms() < think_time)
-		usleep(100);
+	usleep(think_time * M);
 }
