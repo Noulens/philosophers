@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:04:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/07 16:59:04 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:54:36 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	eating(t_philo *p)
 		dieeating(p, &lim, 0);
 		return ;
 	}
-	else if (lim2 > (lm + p->ttd + 10))
+	else if (lim2 > (lm + p->ttd))
 	{
 		lm = lm + p->ttd;
 		dieeating(p, &lm, 1);

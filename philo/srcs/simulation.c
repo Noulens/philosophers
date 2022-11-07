@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/07 17:34:01 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:38:34 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	*rout(void *a)
 			break ;
 		sleeping(p);
 		if (!check_simu(p))
-			break ;	
+			break ;
 		thinking(p);
 	}
 	return (NULL);
