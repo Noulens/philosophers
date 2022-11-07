@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:04:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/07 20:40:48 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 21:55:06 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_simu(t_philo *p)
 		return (FALSE);
 	}
 	pthread_mutex_unlock(&p->mutex[CHECK_DONE]);
-	usleep(100);
+	usleep(10);
 	pthread_mutex_lock(&p->mutex[CHECK_MEALS]);
 	if (p->done == TRUE)
 	{

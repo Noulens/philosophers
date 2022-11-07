@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/07 20:42:21 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 22:13:06 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ int	simulation(t_simulation *b, int idx)
 		return (FAIL);
 	if (b->nbp == 1)
 		return (diner_one(b->philo[0]), b->is_on = FALSE, SUCCES);
+	if (b->ttd == 0)
+		return (die(b->philo[0]), b->is_on = FALSE, SUCCES);
 	while (++idx, idx < (int)b->nbp)
 	{
 		if (pthread_create(&b->philo[idx]->name, NULL, rout, b->philo[idx]))
