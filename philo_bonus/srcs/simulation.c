@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:25:30 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/11/07 20:42:21 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:46:31 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,12 @@ void	choosefork(t_philo *p)
 void	*rout(void *a)
 {
 	t_philo	*p;
-	time_t	think_start;
 
 	p = (t_philo *)a;
 	if (p->num % 2 == 0)
 	{
 		ft_print(p, pense);
-		think_start = gettimeinms() + p->tte;
-		while (gettimeinms() < think_start)
-			usleep(100);
+		usleep((p->tte) * M);
 	}
 	while (TRUE)
 	{
