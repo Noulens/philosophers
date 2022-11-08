@@ -1,7 +1,5 @@
 # Other
 .nfs*
-./philo
-./philo/tests/
 
 # Prerequisites
 *.d
