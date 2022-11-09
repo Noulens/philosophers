@@ -16,7 +16,7 @@ Run `make` in the root of the projet and launch as follows:
     ./philo <philo_nb> <time_to_die> <time_to_eat> <time_to_sleep> [ <number_of_meals> ]
 
 - `philo_nb` -- the number of philosophers and forks.
-- `time_to_die` -- A philosopher dies if he doesn't start to eat `time_die` ms
+- `time_to_die` -- A philosopher dies if he doesn't start to eat `time_to_die` ms
   after **the beginning of his last meal** (or the simulation).
 - `time_to_eat` -- The time it takes for a philosopher to eat.
 - `time_to_sleep` -- The time it takes for a philosopher to sleep.
