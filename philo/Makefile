@@ -6,7 +6,7 @@
 #    By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/11/07 15:11:38 by tnoulens         ###   ########.fr        #
+#    Updated: 2022/11/11 09:53:10 by tnoulens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,4 +113,7 @@ lc:			all
 				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./philo 200 410 200 200
 
 dr:			all
-				valgrind --tool=helgrind -s ./philo 4 410 200 200 10	
+				valgrind --tool=helgrind -s ./philo 4 410 200 200 10
+
+drd:		all
+				valgrind --tool=drd ./philo 4 410 200 200 10
